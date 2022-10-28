@@ -51,39 +51,6 @@ public partial class MainWindow : Window
         }
     }
 
-    private void OpenSave_Click(object sender, MouseButtonEventArgs e)
-    {
-
-        //if (sender is Menu ms)
-        //{
-        //    if (ms.Name== "Open File")
-        //    {
-        //        OpenFileDialog openFile = new OpenFileDialog();
-        //        openFile.Title = "Select file";
-        //        openFile.Filter = "Text Files(*.txt)|.txt";
-        //        if (openFile.ShowDialog() == DialogResult.OK)
-        //            rchtxtbox.Loaded(openFile.FileName, RichTextBoxStreamType.PlainText);
-        //        this.Name = openFile.FileName;
-        //    }
-        //    else if (ms.Name == "Save File")
-        //    {
-        //        if (rchtxtbox.ContextMenu.Length == 0)
-        //        {
-        //            MessageBox.Show("Your text is null", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //            return;
-        //        }
-        //        SaveFileDialog saveFile = new SaveFileDialog();
-        //        saveFile.Title = "Select file";
-        //        saveFile.Filter = "Text Files(*.txt)|.txt";
-        //        if (saveFile.ShowDialog() == DialogResult.OK)
-        //            rchtxtbox.LoadFile(saveFile.FileName, RichTextBoxStreamType.PlainText);
-        //        this.Name = saveFile.FileName;
-        //    }
-        //}
-
-
-    }
-
     private void Open_Click(object sender, MouseButtonEventArgs e)
     {
         //    TextRange t = new TextRange(rchtxtbox.Document.ContentStart,
@@ -101,7 +68,7 @@ public partial class MainWindow : Window
 
     private void Save_Click(object sender, MouseButtonEventArgs e)
     {
-        //if(e.LeftButton==)
+       
         //SaveFileDialog dlg = new SaveFileDialog();
         //dlg.Filter = "Rich Text Format (*.rtf)|*.rtf";
         //if (dlg.ShowDialog() == true)
@@ -126,7 +93,7 @@ public partial class MainWindow : Window
             }
             else if(cmb.Name == "cmb_FontStyle")
             {
-                rchtxtbox.Selection.ApplyPropertyValue(FontStyleProperty, cmb_FontStyle.SelectedValue.ToString());
+                rchtxtbox.Selection.ApplyPropertyValue(FontStyleProperty, cmb_FontFamily.SelectedValue.ToString());
             }
         }
        
