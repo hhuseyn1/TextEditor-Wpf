@@ -67,8 +67,8 @@
             <Label Grid.Column="1" FontSize="15" Foreground="White" FontFamily="Bold" Margin="0,0,0,33">Rich Text Editor</Label>
             <Menu Grid.Column="0" Background="Transparent" Foreground="White" FontSize="14" FontFamily="Bold" Margin="0 40 0 0">
                 <MenuItem Header="File">
-                    <Menu Name="Save_File" MouseDown="Open_Click">Save</Menu>
-                    <Menu Name="Open_File" MouseDown="Save_Click">Load</Menu>
+                    <MenuItem Foreground="Black"  Header="Open" Click ="Open_Click"></MenuItem>
+                    <MenuItem Foreground="Black"  Header="Save" Click ="Save_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Home"/>
                 <MenuItem Header="Insert"/>

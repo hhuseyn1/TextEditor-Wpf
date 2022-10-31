@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -26,11 +28,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
-        cmb_FontColor.SelectedValue = "Black";
 
         cmb_FontColor.SelectedValue = "Black";
-        cmb_FontSize.SelectedIndex = 0;
         cmb_FontStyle.SelectedIndex = 0;
+        cmb_FontSize.SelectedIndex = 0;
 
         Type colorType = typeof(System.Drawing.Color);
         PropertyInfo[] propInfos = colorType.GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
@@ -51,32 +52,38 @@ public partial class MainWindow : Window
         }
     }
 
-    private void Open_Click(object sender, MouseButtonEventArgs e)
+    private void Open_Click(object sender, RoutedEventArgs e)
     {
-        //    TextRange t = new TextRange(rchtxtbox.Document.ContentStart,
-        //                                rchtxtbox.Document.ContentEnd);
-        //    OpenFileDialog dlg = new OpenFileDialog();
-        //    dlg.Filter = "Rich Text Format (*.rtf)|*.rtf";
-        //    if (dlg.ShowDialog() == true)
-        //    {
-        //        FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
-        //        TextRange range = new TextRange(rchtxtbox.Document.ContentStart, rchtxtbox.Document.ContentEnd);
-        //        range.Load(fileStream, DataFormats.Rtf);
-        //    }
+        OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        openFileDialog1.Filter = "Text Files (.txt)|*.txt";
+        var result = openFileDialog1.ShowDialog();
+        switch (result)
+        {
+            case true:
+                StreamReader sr = new(openFileDialog1.FileName);
+                rchtxtbox.Document.Blocks.Clear();
+                rchtxtbox.Document.Blocks.Add(new Paragraph(new Run(sr.ReadToEnd())));
+                break;
+        }
+        
     }
 
 
-    private void Save_Click(object sender, MouseButtonEventArgs e)
+    private void Save_Click(object sender, RoutedEventArgs e)
     {
-       
-        //SaveFileDialog dlg = new SaveFileDialog();
-        //dlg.Filter = "Rich Text Format (*.rtf)|*.rtf";
-        //if (dlg.ShowDialog() == true)
-        //{
-        //    FileStream fileStream = new FileStream(dlg.FileName, FileMode.Create);
-        //    TextRange range = new TextRange(rchtxtbox.Document.ContentStart, rchtxtbox.Document.ContentEnd);
-        //    range.Save(fileStream, DataFormats.Rtf);
-        //}
+        SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+        saveFileDialog1.Filter = "Text Files (.txt)|*.txt";
+        saveFileDialog1.FilterIndex = 1;
+        var result = saveFileDialog1.ShowDialog();
+        switch (result)
+        {
+            case true:
+                StreamWriter sw = new(saveFileDialog1.FileName);
+                TextRange range;
+                range = new TextRange(rchtxtbox.Document.ContentStart, rchtxtbox.Document.ContentEnd);
+                sw.Write(range.Text);
+                break;
+        }
     }
 
     private void ComboboxChanged(object sender, SelectionChangedEventArgs e)
@@ -93,7 +100,7 @@ public partial class MainWindow : Window
             }
             else if(cmb.Name == "cmb_FontStyle")
             {
-                rchtxtbox.Selection.ApplyPropertyValue(FontStyleProperty, cmb_FontFamily.SelectedValue.ToString());
+                rchtxtbox.Selection.ApplyPropertyValue(FontFamilyProperty, cmb_FontStyle.SelectedValue.ToString());
             }
         }
        
